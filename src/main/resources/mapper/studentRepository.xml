@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace= "raisetech.StudentManagement3.repository.StudentRepository">
+
+  <!-- 受講生の全件検索 -->
+  <select id= "search" resultType= "raisetech.StudentManagement3.data.Student">
+    SELECT *
+    FROM students
+  </select>
+
+  <!--受講生の検索 -->
+  <select id= "searchStudent" resultType= "raisetech.StudentManagement3.data.Student">
+    SELECT *
+    FROM students
+    WHERE id= #{id}
+  </select>
+
+  <!--受講生の登録　-->
+  <insert id= "registerStudent" parameterType= "raisetech.StudentManagement3.data.Student">
+    useGeneratedKeys= true, keyProperty= "id"
+    INSERT INTO students(name,kanaName,nickname,email,area,age,sex,remark,isDeleted)
+    VALUES(#{name},#{kanaName},#{nickname},#{email},#{area},#{age},#{sex},#{remark},false)
+  </insert>
+
+  <!--受講生情報の更新-->
+  <update id= "updateStudent" parameterType= "raisetech.StudentManagement3.data.Student">
+    UPDATE students
+    SET name= #{name},kanaName= #{kanaName},nickname= #{nickname},
+    email= #{email}, area= #{area}, age= #{age},sex= #{sex},remark= #{remark},isDeleted= #{isDeleted}
+    WHERE id= #{id}
+  </update>
+
+
+
+<!--  &lt;!&ndash;受講生コース情報の全件検索　&ndash;&gt;-->
+<!--  <select id = "searchStudentCourseList" resultType= "raisetech.StudentManagement3.data.StudentCourse">-->
+<!--    SELECT *-->
+<!--    FROM students_courses-->
+<!--  </select>-->
+<!--  　-->
+<!--  &lt;!&ndash;受講生コース情報の検索　&ndash;&gt;-->
+<!--  <select id = "searchStudentCourse" resultType= "raisetech.StudentManagement3.data.StudentCourse">-->
+<!--    SELECT *-->
+<!--    FROM students_courses-->
+<!--    WHERE studentId= #{studentId}-->
+<!--  </select>-->
+
+  <!--受講生コース情報の登録-->
+  <insert id= "registerStudentCourse" parameterType= "raisetech.StudentManagement3.data.StudentCourse">
+    useGeneratedKeys =true, keyProperty= "id"
+    INSERT INTO students_courses(studentID, courseName, courseStartAt,courseEndAt)
+    VALUES(#{studentId},#{courseName},#{courseStartAt},#{courseEndAt})
+  </insert>
+
+  <!--受講生コース情報の更新-->
+  <update id= "updateStudentCourse" parameterType= "raisetech.StudentManagement3.data.StudentCourse">
+    UPDATE students_courses
+    SET courseName= #{courseName}
+    WHERE id= #{id}
+  </update>
+</mapper>
+
