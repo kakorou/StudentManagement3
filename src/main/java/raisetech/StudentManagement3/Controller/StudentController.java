@@ -61,7 +61,7 @@ public class StudentController {
       public StudentDetail getStudent(
       @PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id) {
       return service.searchStudent(id);
-  }
+    }
 
   /**
    *
