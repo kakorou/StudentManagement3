@@ -12,6 +12,7 @@ import raisetech.StudentManagement3.domain.StudentDetail;
 import raisetech.StudentManagement3.repository.StudentRepository;
 
 /**
+ * サービスは受講生情報の呼び出しと、コンバーターの呼び出しを行う（メモ）
  * 受講生情報を取り扱うサービスです
  * 受講生の検索や登録、更新処理を行います
  */

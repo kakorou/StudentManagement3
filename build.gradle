@@ -26,6 +26,12 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//OpenAPI Generator
+
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
 	//Apache Commons Lang 便利機能
 	implementation 'org.apache.commons:commons-lang3:3.14.0'
 	//Thymeleaf

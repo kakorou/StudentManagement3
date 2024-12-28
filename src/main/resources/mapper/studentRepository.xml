@@ -15,9 +15,10 @@
     WHERE id= #{id}
   </select>
 
+
   <!--受講生の登録　-->
-  <insert id= "registerStudent" parameterType= "raisetech.StudentManagement3.data.Student">
-    useGeneratedKeys= true, keyProperty= "id"
+  <insert id= "registerStudent" parameterType= "raisetech.StudentManagement3.data.Student"
+    useGeneratedKeys="true" keyProperty= "id">
     INSERT INTO students(name,kanaName,nickname,email,area,age,sex,remark,isDeleted)
     VALUES(#{name},#{kanaName},#{nickname},#{email},#{area},#{age},#{sex},#{remark},false)
   </insert>
@@ -30,25 +31,23 @@
     WHERE id= #{id}
   </update>
 
+  <!--受講生コース情報の全件検索　-->
+  <select id = "searchStudentCourseList" resultType= "raisetech.StudentManagement3.data.StudentCourse">
+    SELECT *
+    FROM students_courses
+  </select>
 
-
-<!--  &lt;!&ndash;受講生コース情報の全件検索　&ndash;&gt;-->
-<!--  <select id = "searchStudentCourseList" resultType= "raisetech.StudentManagement3.data.StudentCourse">-->
-<!--    SELECT *-->
-<!--    FROM students_courses-->
-<!--  </select>-->
-<!--  　-->
-<!--  &lt;!&ndash;受講生コース情報の検索　&ndash;&gt;-->
-<!--  <select id = "searchStudentCourse" resultType= "raisetech.StudentManagement3.data.StudentCourse">-->
-<!--    SELECT *-->
-<!--    FROM students_courses-->
-<!--    WHERE studentId= #{studentId}-->
-<!--  </select>-->
+  <!--受講生コース情報の検索　-->
+  <select id="searchStudentCourse" resultType="raisetech.StudentManagement3.data.StudentCourse">
+    SELECT*
+    FROM students_courses
+    WHERE studentId= #{studentId}
+  </select>
 
   <!--受講生コース情報の登録-->
-  <insert id= "registerStudentCourse" parameterType= "raisetech.StudentManagement3.data.StudentCourse">
-    useGeneratedKeys =true, keyProperty= "id"
-    INSERT INTO students_courses(studentID, courseName, courseStartAt,courseEndAt)
+  <insert id= "registerStudentCourse" parameterType= "raisetech.StudentManagement3.data.StudentCourse"
+    useGeneratedKeys ="true" keyProperty= "id">
+    INSERT INTO students_courses(studentId, courseName, courseStartAt,courseEndAt)
     VALUES(#{studentId},#{courseName},#{courseStartAt},#{courseEndAt})
   </insert>
 
