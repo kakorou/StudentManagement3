@@ -1,15 +1,16 @@
 package raisetech.StudentManagement3.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import raisetech.StudentManagement3.domain.StudentDetail;
-import raisetech.StudentManagement3.exception.TestException;
 import raisetech.StudentManagement3.service.StudentService;
 
 /**
@@ -43,12 +43,7 @@ public class StudentController {
     @Operation(summary = "一覧検索",description = "受講生の一覧検索をします")
     @GetMapping("/studentList")
       public List<StudentDetail> getStudentList(){
-//      try {//受講生を検索
         return service.searchStudentList();
-//      } catch (Exception e) {
-//        //何らかのエラーが発生した際にTestExceptionをスロー
-//        throw new TestException("受講生を検索できませんでした", e);
-//      }
     }
 
   /**
@@ -57,6 +52,17 @@ public class StudentController {
    * @param id　受講生ID
    * @return　受講生
    */
+    @Operation(summary = "IDで受講生検索",description = "IDに紐づく受講生の情報を検索します",
+        parameters = {
+            @Parameter(
+                name = "id",//パラメーター名
+                in = ParameterIn.PATH,//場所
+                description = "受講生のID（数字を入力してください）",//説明
+                required = true,//必須かどうか
+                schema = @Schema(type = "string", pattern = "^\\d+$")//正規表現
+            )
+        }
+    )
     @GetMapping("/student/{id}")
       public StudentDetail getStudent(
       @PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id) {
@@ -82,6 +88,7 @@ public class StudentController {
    * @param studentDetail 　受講生詳細
    * @return 実行結果
    */
+    @Operation(summary = "受講生更新",description = "受講生の情報の個人情報や受講コース名を更新します")
     @PutMapping ("/updateStudent")
       public ResponseEntity<String> updateStudent(@RequestBody @Valid StudentDetail studentDetail){
       service.updateStudent(studentDetail);
