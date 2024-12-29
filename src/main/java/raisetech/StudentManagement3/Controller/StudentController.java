@@ -42,13 +42,13 @@ public class StudentController {
    */
     @Operation(summary = "一覧検索",description = "受講生の一覧検索をします")
     @GetMapping("/studentList")
-      public List<StudentDetail> getStudentList() throws TestException {
-      try {//受講生を検索
+      public List<StudentDetail> getStudentList(){
+//      try {//受講生を検索
         return service.searchStudentList();
-      } catch (Exception e) {
-        //何らかのエラーが発生した際にTestExceptionをスロー
-        throw new TestException("受講生を検索できませんでした", e);
-      }
+//      } catch (Exception e) {
+//        //何らかのエラーが発生した際にTestExceptionをスロー
+//        throw new TestException("受講生を検索できませんでした", e);
+//      }
     }
 
   /**

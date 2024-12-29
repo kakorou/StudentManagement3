@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler{
 
-  @ExceptionHandler(TestException.class)
-  public ResponseEntity<String>handleTestException(TestException ex){
-    //HTTP  500とともにエラーメッセージを返す
-   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-  }
+//  @ExceptionHandler(TestException.class)
+//  public ResponseEntity<String>handleTestException(TestException ex){
+//    //HTTP  500とともにエラーメッセージを返す
+//   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+//  }
 }
