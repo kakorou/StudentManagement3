@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import raisetech.StudentManagement3.domain.StudentDetail;
+import raisetech.StudentManagement3.exception.IdNotFoundException;
 import raisetech.StudentManagement3.service.StudentService;
 
 /**
@@ -29,22 +30,22 @@ public class StudentController {
 
   private StudentService service;
 
-    @Autowired
-      public StudentController(StudentService service) {
-      this.service = service;
+  @Autowired
+  public StudentController(StudentService service) {
+    this.service = service;
   }
 
   /**
-   * 受講生詳細一覧検索です
-   * 全件検索をおこなうので、指定は行うものになります
+   * 受講生詳細一覧検索です 全件検索をおこなうので、指定は行うものになります
    *
    * @return 受講生詳細一覧全件検索
    */
-    @Operation(summary = "一覧検索",description = "受講生の一覧検索をします")
-    @GetMapping("/studentList")
-      public List<StudentDetail> getStudentList(){
-        return service.searchStudentList();
-    }
+  @Operation(summary = "一覧検索", description = "受講生の一覧検索をします")
+  @GetMapping("/studentList")
+  public List<StudentDetail> getStudentList() {
+    return service.searchStudentList();
+  }
+
 
   /**
    * 受講生を検索。
@@ -65,7 +66,8 @@ public class StudentController {
     )
     @GetMapping("/student/{id}")
       public StudentDetail getStudent(
-      @PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id) {
+      @PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id) throws IdNotFoundException {
+      StudentDetail studentDetail = service.searchStudent(id);
       return service.searchStudent(id);
     }
 

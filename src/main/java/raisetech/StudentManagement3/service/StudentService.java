@@ -2,6 +2,7 @@ package raisetech.StudentManagement3.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import raisetech.StudentManagement3.Controller.Converter.StudentConverter;
 import raisetech.StudentManagement3.data.Student;
 import raisetech.StudentManagement3.data.StudentCourse;
 import raisetech.StudentManagement3.domain.StudentDetail;
+import raisetech.StudentManagement3.exception.IdNotFoundException;
 import raisetech.StudentManagement3.repository.StudentRepository;
 
 /**
@@ -49,10 +51,15 @@ public class StudentService {
    */
 
 
-  public StudentDetail searchStudent(String id) {
+  public StudentDetail searchStudent(String id) throws IdNotFoundException {
     Student student = repository.searchStudent(id);
     List<StudentCourse> studentCourse = repository.searchStudentCourse(student.getId());
+
+    if (student == null) {
+      throw new IdNotFoundException("IDが見つかりませんでした");
+    }
     return new StudentDetail(student, studentCourse);
+
   }
 
   /**
